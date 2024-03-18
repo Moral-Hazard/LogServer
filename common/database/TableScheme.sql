@@ -1,0 +1,39 @@
+-- Data
+DROP TABLE IF EXISTS CharacterData;
+CREATE TABLE CharacterData (
+	uniqueId BINARY(16) NOT NULL,
+	cname VARCHAR(32) NOT NULL,
+	clevel INT(4) DEFAULT (0),
+	PRIMARY KEY(uniqueId)
+);
+
+-- Log
+DROP TABLE IF EXISTS LocationLog;
+CREATE TABLE LocationLog (
+	logid INTEGER(8) NOT NULL,
+	uniqueId BINARY(16) NOT NULL,
+	ipAddr VARCHAR(16) NOT NULL,
+	locationAddr VARCHAR(16) NOT NULL,
+	PRIMARY KEY(logid)
+);
+
+DROP TABLE IF EXISTS SystemLog;
+CREATE TABLE SystemLog (
+	logid INTEGER(8) NOT NULL AUTO_INCREMENT,
+	logtime TIMESTAMP NOT NULL,
+	mainCategory VARCHAR(16) NOT NULL,
+	subCategory VARCHAR(16),
+	serverName VARCHAR(16) NOT NULL,
+	PRIMARY KEY(logid)
+);
+
+DROP TABLE IF EXISTS CharacterLog;
+CREATE TABLE CharacterLog (
+	logid INTEGER(8) NOT NULL AUTO_INCREMENT,
+	logtime TIMESTAMP NOT NULL,
+	userUniqueId BINARY(16) NOT NULL,
+	mainCategory VARCHAR(16) NOT NULL,
+	subCategory VARCHAR(16),
+	serverName VARCHAR(16) NOT NULL,
+	PRIMARY KEY(logid)
+);

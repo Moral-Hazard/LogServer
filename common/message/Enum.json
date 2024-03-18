@@ -1,0 +1,12 @@
+{
+	"enum": [
+		{
+			"name": "EServerLog",
+			"list": [
+				"START",
+				"CLOSE",
+				"WARNING"
+			]
+		}
+	]
+}

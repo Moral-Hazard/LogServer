@@ -1,0 +1,24 @@
+{
+	"include": [
+		"Struct.json"
+	],
+	"message": {
+		"client": [
+			{
+				"name": "SystemLog",
+				"data": [
+					{
+						"type": "string",
+						"name": "serverName"
+					},
+					{
+						"type": "EServerLog",
+						"name": "category"
+					}
+				]
+			}
+		],
+		"server": [
+		]
+	}
+}
