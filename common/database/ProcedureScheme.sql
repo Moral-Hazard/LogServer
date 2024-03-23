@@ -1,17 +1,46 @@
+USE LogDB;
+
 DELIMITER $$
-DROP PROCEDURE IF EXISTS SP_LoginLog;
-CREATE PROCEDURE SP_LoginLog(
-	IN uniqueId BINARY(16)
+
+-- LOGIN & REGISTER
+DROP PROCEDURE IF EXISTS SP_LogLogin;
+CREATE PROCEDURE SP_LogLogin(
+	IN uniqueId VARCHAR(36),
+	IN ipAddress VARCHAR(16)
 )
 BEGIN
-	SET @NICKNAME = 0;
+	INSERT INTO LogDB.SecurityLogs(timestamp, eventType, sourceIp, userId)
+	VALUES(NOW(), 'Login', ipAddress, uniqueId);
+END $$
 
-	SELECT nickname
-	INTO @NICKNAME
-	FROM UserAccount AS account
-	WHERE account.uniqueId = uniqueId;
+DROP PROCEDURE IF EXISTS SP_LogLogOut;
+CREATE PROCEDURE SP_LogLogOut(
+	IN uniqueId VARCHAR(36),
+	IN ipAddress VARCHAR(16)
+)
+BEGIN
+	INSERT INTO LogDB.SecurityLogs(timestamp, eventType, sourceIp, userId)
+	VALUES(NOW(), 'Log out', ipAddress, uniqueId);
+END $$
 
-	INSERT INTO GameLog(logtime, category, logdata) VALUES(NOW(), 'INFO', CONCAT('`', @NICKNAME, '`', ' logined'));
+DROP PROCEDURE IF EXISTS SP_LogRegister;
+CREATE PROCEDURE SP_LogRegister(
+	IN uniqueId VARCHAR(36),
+	IN ipAddress VARCHAR(16)
+)
+BEGIN
+	INSERT INTO LogDB.SecurityLogs(timestamp, eventType, sourceIp, userId)
+	VALUES(NOW(), 'Register', ipAddress, uniqueId);
+END $$
+
+-- INSERT LOG
+DROP PROCEDURE IF EXISTS SP_SystemLog;
+CREATE PROCEDURE SP_SystemLog(
+	
+)
+BEGIN
+	
 END $$
 
 DELIMITER ;
+commit;

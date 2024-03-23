@@ -12,8 +12,29 @@
 						"name": "serverName"
 					},
 					{
-						"type": "EServerLog",
-						"name": "category"
+						"type": "string",
+						"name": "message"
+					},
+					{
+						"type": "ESeverity",
+						"name": "severity"
+					}
+				]
+			},
+			{
+				"name": "SecurityLog",
+				"data": [
+					{
+						"type": "string",
+						"name": "uid"
+					},
+					{
+						"type": "string",
+						"name": "ipAddress"
+					},
+					{
+						"type": "ELoginType",
+						"name": "loginType"
 					}
 				]
 			}

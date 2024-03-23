@@ -1,39 +1,17 @@
--- Data
-DROP TABLE IF EXISTS CharacterData;
-CREATE TABLE CharacterData (
-	uniqueId BINARY(16) NOT NULL,
-	cname VARCHAR(32) NOT NULL,
-	clevel INT(4) DEFAULT (0),
-	PRIMARY KEY(uniqueId)
+USE LogDB;
+
+CREATE TABLE IF NOT EXISTS SystemLogs (
+    log_id INT AUTO_INCREMENT PRIMARY KEY,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    severity ENUM('DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'),
+    message TEXT
 );
 
--- Log
-DROP TABLE IF EXISTS LocationLog;
-CREATE TABLE LocationLog (
-	logid INTEGER(8) NOT NULL,
-	uniqueId BINARY(16) NOT NULL,
-	ipAddr VARCHAR(16) NOT NULL,
-	locationAddr VARCHAR(16) NOT NULL,
-	PRIMARY KEY(logid)
-);
-
-DROP TABLE IF EXISTS SystemLog;
-CREATE TABLE SystemLog (
-	logid INTEGER(8) NOT NULL AUTO_INCREMENT,
-	logtime TIMESTAMP NOT NULL,
-	mainCategory VARCHAR(16) NOT NULL,
-	subCategory VARCHAR(16),
-	serverName VARCHAR(16) NOT NULL,
-	PRIMARY KEY(logid)
-);
-
-DROP TABLE IF EXISTS CharacterLog;
-CREATE TABLE CharacterLog (
-	logid INTEGER(8) NOT NULL AUTO_INCREMENT,
-	logtime TIMESTAMP NOT NULL,
-	userUniqueId BINARY(16) NOT NULL,
-	mainCategory VARCHAR(16) NOT NULL,
-	subCategory VARCHAR(16),
-	serverName VARCHAR(16) NOT NULL,
-	PRIMARY KEY(logid)
+CREATE TABLE IF NOT EXISTS SecurityLogs (
+    log_id INT AUTO_INCREMENT PRIMARY KEY,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    eventType VARCHAR(255),
+    sourceIp VARCHAR(16),
+    userId INT,
+    details TEXT
 );

@@ -5,7 +5,7 @@
 
 void LogSession::OnConnected(net::Endpoint endpoint)
 {
-	GLogHandler->Launch([endpoint] { Console::Log(LogIO, Debug, action::ToUnicodeString(endpoint.toString())); });
+
 }
 
 void LogSession::OnDisconnected(net::Endpoint)

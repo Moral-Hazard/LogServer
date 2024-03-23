@@ -191,10 +191,10 @@ python execute.py -s ../../$(ProjectName)/common/ --client_path="['../../Account
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="common\generated\logs\ServerPacketHandler.gen.cpp" />
-    <ClCompile Include="LogServer\LogHandler.cpp" />
+    <ClCompile Include="LogServer\Manager\LogHandler.cpp" />
     <ClCompile Include="LogServer\LogServer.cpp" />
-    <ClCompile Include="LogServer\LogSession.cpp" />
+    <ClCompile Include="LogServer\Session\LogSession.cpp" />
+    <ClCompile Include="LogServer\ServerPacketHandler.cpp" />
     <ClCompile Include="Main\main.cpp" />
     <ClCompile Include="Main\PCH\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -202,6 +202,8 @@ python execute.py -s ../../$(ProjectName)/common/ --client_path="['../../Account
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="LogServer\Manager\Manager.cpp" />
+    <ClCompile Include="LogServer\Manager\Procedure.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\generated\logs\Enum.gen.hpp" />
@@ -209,12 +211,15 @@ python execute.py -s ../../$(ProjectName)/common/ --client_path="['../../Account
     <ClInclude Include="common\generated\logs\Protocol.gen.hpp" />
     <ClInclude Include="common\generated\logs\ServerPacketHandler.gen.hpp" />
     <ClInclude Include="common\generated\logs\Struct.gen.hpp" />
-    <ClInclude Include="LogServer\LogHandler.hpp" />
+    <ClInclude Include="LogServer\Manager\LogHandler.hpp" />
     <ClInclude Include="LogServer\LogServer.hpp" />
-    <ClInclude Include="LogServer\LogSession.hpp" />
+    <ClInclude Include="LogServer\Session\LogSession.hpp" />
     <ClInclude Include="Main\PCH\pch.h" />
+    <ClInclude Include="LogServer\Manager\Manager.hpp" />
+    <ClInclude Include="LogServer\Manager\Procedure.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="common\database\Setup.sql" />
     <None Include="common\database\TableScheme.sql" />
     <None Include="common\database\ProcedureScheme.sql" />
     <None Include="common\message\Enum.json" />

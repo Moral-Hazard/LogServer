@@ -1,11 +1,21 @@
 {
 	"enum": [
 		{
-			"name": "EServerLog",
+			"name": "ESeverity",
 			"list": [
-				"START",
-				"CLOSE",
-				"WARNING"
+				"DEBUG",
+				"INFO",
+				"WARNING",
+				"ERROR",
+				"CRITICAL"
+			]
+		},
+		{
+			"name": "ELoginType",
+			"list": [
+				"LOGIN",
+				"REGISTER",
+				"LOGOUT"
 			]
 		}
 	]
