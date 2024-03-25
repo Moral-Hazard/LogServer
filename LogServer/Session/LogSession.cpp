@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "LogSession.hpp"
-#include "LogHandler.hpp"
 #include "generated/logs/ServerPacketHandler.gen.hpp"
 
 void LogSession::OnConnected(net::Endpoint endpoint)

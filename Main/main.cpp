@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Network/Server.hpp"
-#include "LogSession.hpp"
+#include "Session/LogSession.hpp"
 #include "LogServer.hpp"
 
 using namespace std;
