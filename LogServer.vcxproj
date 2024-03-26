@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -203,7 +203,6 @@ python execute.py -s ../../$(ProjectName)/common/ --client_path="['../../Account
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="LogServer\Manager\Manager.cpp" />
-    <ClCompile Include="LogServer\Manager\Procedure.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\generated\logs\Enum.gen.hpp" />
@@ -216,7 +215,6 @@ python execute.py -s ../../$(ProjectName)/common/ --client_path="['../../Account
     <ClInclude Include="LogServer\Session\LogSession.hpp" />
     <ClInclude Include="Main\PCH\pch.h" />
     <ClInclude Include="LogServer\Manager\Manager.hpp" />
-    <ClInclude Include="LogServer\Manager\Procedure.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="common\database\Setup.sql" />

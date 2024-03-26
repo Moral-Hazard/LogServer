@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS SystemLogs (
     log_id INT AUTO_INCREMENT PRIMARY KEY,
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     severity ENUM('DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'),
+    serverName VARCHAR(32) NOT NULL,
     message TEXT
 );
 

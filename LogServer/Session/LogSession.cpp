@@ -2,7 +2,7 @@
 #include "LogSession.hpp"
 #include "generated/logs/ServerPacketHandler.gen.hpp"
 
-void LogSession::OnConnected(net::Endpoint endpoint)
+void LogSession::OnConnected(net::Endpoint)
 {
 
 }
