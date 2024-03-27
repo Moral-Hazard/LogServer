@@ -15,6 +15,10 @@ void LogHandler::HandleSystemLog(std::shared_ptr<class Session> session, gen::lo
 		stmt.SetParameter(2, log.message.c_str());
 
 		bool success = stmt.ExecuteQuery();
+		if (success)
+		{
+			Console::Log(LogLogServer, Log, std::format(TEXT("({}) {}."), log.serverName, log.message));
+		}
 
 		GEngine->GetDBConnectionPool()->Push(conn);
 	}
@@ -30,9 +34,25 @@ void LogHandler::HandleSecurityLog(std::shared_ptr<class Session> session, gen::
 		stmt.SetParameter(0, loginType);
 		stmt.SetParameter(1, log.uid.c_str());
 		stmt.SetParameter(2, log.ipAddress.c_str());
-
+		
 		bool success = stmt.ExecuteQuery();
-
+		if (success)
+		{
+			switch (log.loginType)
+			{
+			case gen::logs::ELoginType::LOGIN:
+				Console::Log(LogLogServer, Log, std::format(TEXT("'{}' has logined."), log.uid));
+				break;
+			case gen::logs::ELoginType::LOGOUT:
+				Console::Log(LogLogServer, Log, std::format(TEXT("'{}' has log out."), log.uid));
+				break;
+			case gen::logs::ELoginType::REGISTER:
+				Console::Log(LogLogServer, Log, std::format(TEXT("'{}' has registered."), log.uid));
+				break;
+			default:
+				break;
+			}
+		}
 		GEngine->GetDBConnectionPool()->Push(conn);
 	}
 }

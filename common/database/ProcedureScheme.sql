@@ -22,7 +22,7 @@ BEGIN
 	END CASE;
 
 	INSERT INTO LogDB.SecurityLogs(timestamp, eventType, sourceIp, userId)
-	VALUES(NOW(), eventType, ipAddress, UUID_TO_BINARY(userId));
+	VALUES(NOW(), eventType, ipAddress, UUID_TO_BIN(uniqueId));
 END $$
 
 -- INSERT LOG
