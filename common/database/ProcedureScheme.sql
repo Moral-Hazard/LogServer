@@ -1,36 +1,28 @@
-USE logdb;
+USE LogDB;
 
 DELIMITER $$
 
 -- LOGIN & REGISTER
-DROP PROCEDURE IF EXISTS SP_LogLogin;
-CREATE PROCEDURE SP_LogLogin(
+DROP PROCEDURE IF EXISTS SP_SecuLog;
+CREATE PROCEDURE SP_SecuLog(
+	IN loginType INTEGER,
 	IN uniqueId VARCHAR(36),
 	IN ipAddress VARCHAR(16)
 )
 BEGIN
-	INSERT INTO LogDB.SecurityLogs(timestamp, eventType, sourceIp, userId)
-	VALUES(NOW(), 'Login', ipAddress, uniqueId);
-END $$
+	DECLARE eventType VARCHAR(255);
 
-DROP PROCEDURE IF EXISTS SP_LogLogOut;
-CREATE PROCEDURE SP_LogLogOut(
-	IN uniqueId VARCHAR(36),
-	IN ipAddress VARCHAR(16)
-)
-BEGIN
-	INSERT INTO LogDB.SecurityLogs(timestamp, eventType, sourceIp, userId)
-	VALUES(NOW(), 'Log out', ipAddress, uniqueId);
-END $$
+	CASE loginType
+		WHEN 0 THEN
+			SET eventType = 'LOGIN';
+		WHEN 1 THEN
+			SET eventType = 'REGISTER';
+		WHEN 2 THEN
+			SET eventType = 'LOGOUT';
+	END CASE;
 
-DROP PROCEDURE IF EXISTS SP_LogRegister;
-CREATE PROCEDURE SP_LogRegister(
-	IN uniqueId VARCHAR(36),
-	IN ipAddress VARCHAR(16)
-)
-BEGIN
 	INSERT INTO LogDB.SecurityLogs(timestamp, eventType, sourceIp, userId)
-	VALUES(NOW(), 'Register', ipAddress, uniqueId);
+	VALUES(NOW(), eventType, ipAddress, uniqueId);
 END $$
 
 -- INSERT LOG

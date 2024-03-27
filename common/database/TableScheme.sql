@@ -13,6 +13,6 @@ CREATE TABLE IF NOT EXISTS SecurityLogs (
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     eventType VARCHAR(255),
     sourceIp VARCHAR(16),
-    userId INT,
+    userId VARCHAR(36),
     details TEXT
 );
