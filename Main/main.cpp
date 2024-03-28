@@ -11,12 +11,12 @@ int main()
 	try {
 		auto server = Server::Open<LogSession>();
 
-		Console::Log(LogLogServer, Log, TEXT("Log Server is running on ") + action::ToUnicodeString(ep.toString()));
+		Console::Log(Category::LogServer, Info, TEXT("Log Server is running on ") + action::ToUnicodeString(ep.toString()));
 		
 		server->Run(ep);
 		GEngine->ExecuteIocpLogic(thread::hardware_concurrency(), true);
 	}
 	catch (exception& e) {
-		Console::Log(LogLogServer, Error, action::ToUnicodeString(e.what()));
+		Console::Log(Category::LogServer, Error, action::ToUnicodeString(e.what()));
 	}
 }
