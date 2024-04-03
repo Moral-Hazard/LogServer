@@ -205,11 +205,6 @@ python execute.py -s ../../$(ProjectName)/common/ --client_path="['../../Account
     <ClCompile Include="LogServer\Manager\Manager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="common\generated\logs\Enum.gen.hpp" />
-    <ClInclude Include="common\generated\logs\Packet.gen.hpp" />
-    <ClInclude Include="common\generated\logs\Protocol.gen.hpp" />
-    <ClInclude Include="common\generated\logs\ServerPacketHandler.gen.hpp" />
-    <ClInclude Include="common\generated\logs\Struct.gen.hpp" />
     <ClInclude Include="LogServer\Manager\LogHandler.hpp" />
     <ClInclude Include="LogServer\LogServer.hpp" />
     <ClInclude Include="LogServer\Session\LogSession.hpp" />
