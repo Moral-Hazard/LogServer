@@ -158,7 +158,7 @@ python execute.py -s ../../$(ProjectName)/common/ --client_path="['../../Account
     </Link>
     <PreBuildEvent>
       <Command>cd ../tools/PacketGenerator
-python execute.py -s ../../$(ProjectName)/common/ --client_path="['../../AccountServer/common/', '../../MMOServer/common/']" -n logs
+python execute.py -s ../../$(ProjectName)/Common/ --client_path="['../../AccountServer/Common/', '../../MMOServer/Common/']" -n logs
 </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
