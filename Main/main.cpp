@@ -14,7 +14,7 @@ int main()
 
 		Console::Log(Category::LogServer, Info, TEXT("Log Server is running on ") + action::ToUnicodeString(ep.toString()));
 
-		GEngine->ExecuteThread(2, 2, true);
+		GEngine->ExecuteThread(2, 2);
 	}
 	catch (exception& e) {
 		Console::Log(Category::LogServer, Error, action::ToUnicodeString(e.what()));

@@ -5,7 +5,7 @@
 class LogHandler : public JobSerializer
 {
 public:
-	void HandleSystemLog(std::shared_ptr<class Session> session, gen::logs::SystemLog log);
-	void HandleSecurityLog(std::shared_ptr<class Session> session, gen::logs::SecurityLog log);
+	void HandleSystemLog(std::shared_ptr<class Session> session, std::shared_ptr<gen::logs::SystemLog> log);
+	void HandleSecurityLog(std::shared_ptr<class Session> session, std::shared_ptr<gen::logs::SecurityLog> log);
 };
 

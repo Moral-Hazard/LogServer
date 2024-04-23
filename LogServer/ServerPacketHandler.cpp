@@ -8,12 +8,12 @@ using namespace gen;
 
 bool logs::PacketHandler::SystemLogPacketHandler(TSharedPtr<Session> session, TSharedPtr<SystemLog> packet)
 {
-	Manager::LogHandler()->Launch(&LogHandler::HandleSystemLog, session, *packet);
+	Manager::LogHandler()->Launch(&LogHandler::HandleSystemLog, session, packet);
 	return false;
 }
 
 bool logs::PacketHandler::SecurityLogPacketHandler(TSharedPtr<Session> session, TSharedPtr<SecurityLog> packet)
 {
-	Manager::LogHandler()->Launch(&LogHandler::HandleSecurityLog, session, *packet);
+	Manager::LogHandler()->Launch(&LogHandler::HandleSecurityLog, session, packet);
 	return false;
 }
