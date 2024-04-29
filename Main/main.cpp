@@ -9,12 +9,17 @@ int main()
 {
 	auto ep = Endpoint(IpAddress::Loopback, 1225);
 	try {
-		auto server = Server::Open<LogSession>();
+		auto server = Server::Open<LogSession>();	
 		server->Run(ep);
 
 		Console::Log(Category::LogServer, Info, TEXT("Log Server is running on ") + action::ToUnicodeString(ep.toString()));
 
 		GEngine->ExecuteThread(2, 2);
+
+		while (true)
+		{
+			std::this_thread::sleep_for(std::chrono::seconds(1));
+		}
 	}
 	catch (exception& e) {
 		Console::Log(Category::LogServer, Error, action::ToUnicodeString(e.what()));
