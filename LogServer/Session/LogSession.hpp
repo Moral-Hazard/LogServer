@@ -9,5 +9,7 @@ public:
     virtual void OnDisconnected(net::Endpoint);
     virtual void OnReceive(std::span<char>, int);
     virtual void OnFail(Failure);
+    
+    String serverName;
 };
 

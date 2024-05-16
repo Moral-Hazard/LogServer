@@ -14,7 +14,9 @@ void LogSession::OnDisconnected(net::Endpoint)
 
 void LogSession::OnReceive(std::span<char> buffer, int)
 {
-	gen::logs::PacketHandler::handlePacket(shared_from_this(), buffer);
+	uint16 id = 0;
+	memcpy(&id, buffer.data(), sizeof(uint16));
+	gen::logs::PacketHandler::handlePacket(shared_from_this(), id, buffer);
 }
 
 void LogSession::OnFail(Failure)
