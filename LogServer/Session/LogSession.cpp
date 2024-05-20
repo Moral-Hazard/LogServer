@@ -16,7 +16,7 @@ void LogSession::OnReceive(std::span<char> buffer, int)
 {
 	uint16 id = 0;
 	memcpy(&id, buffer.data(), sizeof(uint16));
-	gen::logs::PacketHandler::handlePacket(shared_from_this(), id, buffer);
+	gen::logs::PacketHandler::HandlePacket(shared_from_this(), id, buffer);
 }
 
 void LogSession::OnFail(Failure)
