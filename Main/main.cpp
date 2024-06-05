@@ -16,10 +16,7 @@ int main()
 
 		GEngine->ExecuteThread(2, 2);
 
-		while (true)
-		{
-			std::this_thread::sleep_for(std::chrono::seconds(1));
-		}
+		getchar();
 	}
 	catch (exception& e) {
 		Console::Log(Category::LogServer, Error, action::ToUnicodeString(e.what()));
