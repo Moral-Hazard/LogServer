@@ -18,7 +18,7 @@ void LogHandler::HandleSystemLog(std::shared_ptr<Session> session, std::shared_p
 		bool success = stmt.ExecuteQuery();
 		if (success)
 		{
-			Console::Log(Category::LogServer, Info, std::format(TEXT("({}) {}."), log->serverName, log->message));
+			Console::Log(Category::LogServer, std::format(TEXT("({}) {}."), log->serverName, log->message));
 		}
 
 		GEngine->GetDBConnectionPool()->Push(conn);
@@ -42,13 +42,13 @@ void LogHandler::HandleSecurityLog(std::shared_ptr<Session> session, std::shared
 			switch (log->loginType)
 			{
 			case gen::logs::ELoginType::LOGIN:
-				Console::Log(Category::LogServer, Info, std::format(TEXT("'{}' has logined."), log->uid));
+				Console::Log(Category::LogServer, std::format(TEXT("'{}' has logined."), log->uid));
 				break;
 			case gen::logs::ELoginType::LOGOUT:
-				Console::Log(Category::LogServer, Info, std::format(TEXT("'{}' has log out."), log->uid));
+				Console::Log(Category::LogServer, std::format(TEXT("'{}' has log out."), log->uid));
 				break;
 			case gen::logs::ELoginType::REGISTER:
-				Console::Log(Category::LogServer, Info, std::format(TEXT("'{}' has registered."), log->uid));
+				Console::Log(Category::LogServer, std::format(TEXT("'{}' has registered."), log->uid));
 				break;
 			default:
 				break;
