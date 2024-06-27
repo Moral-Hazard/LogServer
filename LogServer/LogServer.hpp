@@ -5,6 +5,8 @@ struct LogServer final
 {
 	LogServer();
 	~LogServer();
+
+	void Run();
 };
 
-static LogServer LogServerInstance;
+static LogServer* LogServerInstance;
