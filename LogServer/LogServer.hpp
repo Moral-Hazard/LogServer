@@ -1,12 +1,13 @@
 #pragma once
+#include "Subsystem/GameInstance.hpp"
 
 MAKE_LOG_CATEGORY(LogServer);
-struct LogServer final
+struct LogServer final : public GameInstance
 {
 	LogServer();
 	~LogServer();
 
-	void Run();
+	void Run() override;
 };
 
 static LogServer* LogServerInstance;

@@ -1,59 +1,41 @@
 #include "pch.h"
 #include "LogHandler.hpp"
-#include "Database/DBConnectionPool.hpp"
-#include "Database/Statement.hpp"
 #include "Network/Server.hpp"
 
-void LogHandler::HandleSystemLog(std::shared_ptr<Session> session, std::shared_ptr<gen::logs::SystemLog> log)
+void LogHandler::HandleSystemLog(class Session* session, std::shared_ptr<gen::logs::SystemLog> log)
 {
-	auto conn = GEngine->GetDBConnectionPool()->Pop();
-	if (conn)
-	{
-		int severity = log->severity;
-		auto stmt = conn->CreateStatement<3, 0>(TEXT("CALL SP_SystemLog(?, ?, ?)"));
-		stmt.SetParameter(0, severity);
-		stmt.SetParameter(1, log->serverName.c_str());
-		stmt.SetParameter(2, log->message.c_str());
-
-		bool success = stmt.ExecuteQuery();
-		if (success)
-		{
+	auto pstmt = GDatabase->CallProcedure("SP_SystemLog",
+		static_cast<uint16>(log->severity),
+		ToAnsiString(log->serverName),
+		ToAnsiString(log->message)
+	);
+	pstmt->AsyncUpdate([&](int result) {
+		if (result)
 			Console::Log(Category::LogServer, std::format(TEXT("({}) {}."), log->serverName, log->message));
-		}
-
-		GEngine->GetDBConnectionPool()->Push(conn);
-	}
+	});
 }
 
-void LogHandler::HandleSecurityLog(std::shared_ptr<Session> session, std::shared_ptr<gen::logs::SecurityLog> log)
+void LogHandler::HandleSecurityLog(class Session* session, std::shared_ptr<gen::logs::SecurityLog> log)
 {
-	auto conn = GEngine->GetDBConnectionPool()->Pop();
-	if (conn)
-	{
-		int loginType = log->loginType;
-		auto stmt = conn->CreateStatement<3, 0>(TEXT("CALL SP_SecuLog(?, ?, ?)"));
-		stmt.SetParameter(0, loginType);
-		stmt.SetParameter(1, log->uid.c_str());
-		stmt.SetParameter(2, log->ipAddress.c_str());
-		
-		bool success = stmt.ExecuteQuery();
-		if (success)
+	auto pstmt = GDatabase->CallProcedure("SP_SecuLog",
+								static_cast<uint16>(log->loginType),
+								ToAnsiString(log->uid),
+								ToAnsiString(log->ipAddress)
+							);
+	pstmt->AsyncUpdate([&](int ret) {
+		switch (log->loginType)
 		{
-			switch (log->loginType)
-			{
-			case gen::logs::ELoginType::LOGIN:
-				Console::Log(Category::LogServer, std::format(TEXT("'{}' has logined."), log->uid));
-				break;
-			case gen::logs::ELoginType::LOGOUT:
-				Console::Log(Category::LogServer, std::format(TEXT("'{}' has log out."), log->uid));
-				break;
-			case gen::logs::ELoginType::REGISTER:
-				Console::Log(Category::LogServer, std::format(TEXT("'{}' has registered."), log->uid));
-				break;
-			default:
-				break;
-			}
+		case gen::logs::ELoginType::LOGIN:
+			Console::Log(Category::LogServer, std::format(TEXT("'{}' has logined."), log->uid));
+			break;
+		case gen::logs::ELoginType::LOGOUT:
+			Console::Log(Category::LogServer, std::format(TEXT("'{}' has log out."), log->uid));
+			break;
+		case gen::logs::ELoginType::REGISTER:
+			Console::Log(Category::LogServer, std::format(TEXT("'{}' has registered."), log->uid));
+			break;
+		default:
+			break;
 		}
-		GEngine->GetDBConnectionPool()->Push(conn);
-	}
+	});
 }

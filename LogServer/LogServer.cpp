@@ -1,34 +1,30 @@
 #include "pch.h"
 #include "LogServer.hpp"
-#include "Database/DBConnectionPool.hpp"
 #include "Network/Server.hpp"
 #include "Session/LogSession.hpp"
 
 Engine* GEngine;
+Database* GDatabase;
 
 LogServer::LogServer()
 {
 	GEngine = new Engine;
+	GDatabase = new Database;
 }
 
 LogServer::~LogServer()
 {
 	delete GEngine;
+	delete GDatabase;
 }
 
 void LogServer::Run()
 {
 	GEngine->Initialize();
+	GDatabase->Initialize();
 
-	GEngine->GetDBConnectionPool()->Connect(10, TEXT(
-		"DRIVER={MySQL ODBC 8.3 Unicode Driver};"
-		"SERVER=localhost;"
-		"PORT=3306;"
-		"DATABASE=LogDB;"
-		"USER=LogAdmin;"
-		"PASSWORD=rHrmeLql$12;"
-		"OPTION=3;"
-	));
+	GDatabase->SetDatabaseProfile(TEXT("LogAdmin"), TEXT("rHrmeLql$12"), TEXT("LogDB"));
+	GDatabase->CreateConnection();
 
 	auto ep = Endpoint(IpAddress::Loopback, 1225);
 	try {
@@ -37,7 +33,7 @@ void LogServer::Run()
 
 		Console::Log(Category::LogServer, TEXT("Log Server is running on ") + ToUnicodeString(ep.toString()));
 
-		GEngine->ExecuteThread(2, 2);
+		GEngine->Run(2);
 	}
 	catch (std::exception& e) {
 		Console::Error(Category::LogServer, ToUnicodeString(e.what()));
